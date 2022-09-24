@@ -1,5 +1,7 @@
 export interface Account {
   id: number;
-  name: string;
+  name: String;
+  label: String;
   main: boolean;
+  value: number;
 }

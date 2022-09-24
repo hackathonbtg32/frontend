@@ -7,19 +7,28 @@ interface IState {
 }
 
 export const state = (): IState => ({
-  list: [],
+  list: [
+    {
+      id: 1,
+      main: true,
+      name: "BTG Pactual",
+      label: "Conta Principal",
+      value: 170,
+    },
+    {
+      id: 2,
+      main: false,
+      name: "Nu Bank",
+      label: "Conta de Investimento",
+      value: 47,
+    },
+  ],
   date: null,
 });
 
 export const getters: GetterTree<IState, IState> = {
   main(state) {
     return state.list.find((item) => item.main === true);
-  },
-  byId(state, id: number) {
-    return state.list.find((item) => item.id === id);
-  },
-  indexById(state, id: number) {
-    return state.list.findIndex((item) => item.id === id);
   },
 };
 
@@ -31,7 +40,7 @@ export const mutations: MutationTree<IState> = {
     state.list.unshift(item);
   },
   remove(state, index: number) {
-    state.list.slice(index);
+    state.list.splice(index, 1);
   },
   clear(state) {
     state.list = [];
@@ -40,16 +49,16 @@ export const mutations: MutationTree<IState> = {
 
 export const actions: ActionTree<IState, IState> = {
   async select({ commit }) {
-    const list = await this.$axios.get("/teste");
-    commit("set", list);
+    //const list = await this.$axios.get("/teste");
+    //commit("set", list);
   },
   async create({ commit }, data: Account) {
     const item = await this.$axios.post("/teste", data);
     commit("add", item);
   },
-  async delete({ getters, commit }, id: number) {
-    await this.$axios.delete("/teste" + id);
-    const index = getters.indexById(id);
+  async delete({ state, commit }, id: number) {
+    //await this.$axios.delete("/teste" + id);
+    const index = state.list.findIndex((item) => item.id === id);
     commit("remove", index);
   },
 };

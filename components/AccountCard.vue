@@ -1,37 +1,51 @@
 <template>
-  <div class="card">
-    <div class="card-content is-relative">
-      <div class="media">
-        <div class="media-left">
-          <figure class="image is-48x48">
-            <img
-              src="https://bulma.io/images/placeholders/96x96.png"
-              alt="Placeholder image"
-            />
-          </figure>
+  <div class="columns is-multiline">
+    <div
+      v-for="account in accounts"
+      :key="account.id"
+      class="column is-one-third"
+    >
+      <div class="card">
+        <div class="card-content is-relative">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img
+                  src="https://bulma.io/images/placeholders/96x96.png"
+                  alt="Placeholder image"
+                />
+              </figure>
+            </div>
+
+            <div class="media-content">
+              <p class="title is-4">{{ account.name }}</p>
+              <p class="subtitle is-6">{{ account.label }}</p>
+            </div>
+
+            <b-dropdown
+              aria-role="list"
+              position="is-top-left"
+              class="is-clickable"
+            >
+              <template #trigger>
+                <b-icon icon="dots-horizontal"></b-icon>
+              </template>
+
+              <b-dropdown-item
+                aria-role="listitem"
+                @click="() => deleteAccount(account.id)"
+              >
+                Remover
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
+
+          <div class="content">
+            <p class="is-size-4 has-text-weight-semibold">
+              R$ {{ account.value }}
+            </p>
+          </div>
         </div>
-
-        <div class="media-content">
-          <p class="title is-4">BTG Pactual</p>
-          <p class="subtitle is-6">Investimentos</p>
-        </div>
-
-        <b-dropdown
-          aria-role="list"
-          position="is-top-left"
-          class="is-clickable"
-        >
-          <template #trigger>
-            <b-icon icon="dots-horizontal"></b-icon>
-          </template>
-
-          <b-dropdown-item aria-role="listitem">Remover Conta</b-dropdown-item>
-          <b-dropdown-item aria-role="listitem">Editar Apelido</b-dropdown-item>
-        </b-dropdown>
-      </div>
-
-      <div class="content">
-        <p class="is-size-4 has-text-weight-semibold">R$ 170.00</p>
       </div>
     </div>
   </div>
@@ -39,9 +53,25 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapState, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "AccountCard",
+  computed: {
+    ...mapState("accounts", {
+      accounts: "list",
+      dateAccounts: "date",
+    }),
+  },
+  mounted() {
+    this.selectAccounts();
+  },
+  methods: {
+    ...mapActions({
+      selectAccounts: "accounts/select",
+      deleteAccount: "accounts/delete",
+    }),
+  },
 });
 </script>
 
