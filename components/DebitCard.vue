@@ -8,21 +8,24 @@
       <p class="column is-1"></p>
     </div>
 
-    <div v-for="x in [1, 2, 3, 4, 5]" :key="x" class="card mb-5 is-relative">
+    <div v-for="debit in debits" :key="debit.id" class="card mb-5 is-relative">
       <b-progress
         :rounded="false"
-        :value="60"
-        type="is-success"
+        :value="debit.percent"
+        :type="debit.percent === 100 ? 'is-danger' : 'is-success'"
         class="is-tiny"
       ></b-progress>
 
       <div class="columns">
-        <p class="column has-text-centered">Faculdade</p>
-        <p class="column has-text-centered">R$ 1000,00</p>
-        <p class="column has-text-centered">10 / 12 / 22</p>
-        <p class="column has-text-centered">Univem</p>
+        <p class="column has-text-centered">{{ debit.description }}</p>
+        <p class="column has-text-centered">R$ {{ debit.value }}</p>
+        <p class="column has-text-centered">
+          {{ new Date(debit.expiration).toLocaleDateString() }}
+        </p>
+        <p class="column has-text-centered">{{ debit.name }}</p>
         <div class="column is-1">
           <b-dropdown
+            v-if="debit.percent < 100"
             aria-role="list"
             position="is-top-left"
             class="is-clickable"
@@ -31,7 +34,12 @@
               <b-icon icon="dots-horizontal"></b-icon>
             </template>
 
-            <b-dropdown-item aria-role="listitem"> Remover </b-dropdown-item>
+            <b-dropdown-item
+              aria-role="listitem"
+              @click="() => deleteDebits(debit.id)"
+            >
+              Remover
+            </b-dropdown-item>
           </b-dropdown>
         </div>
       </div>
@@ -41,9 +49,29 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "DebitCard",
+  computed: {
+    ...mapState("debits", {
+      dateDebits: "date",
+    }),
+    ...mapGetters("debits", {
+      debits: "orderByPercent",
+    }),
+  },
+  mounted() {
+    setInterval(() => {
+      this.selectDebits();
+    }, 100000);
+  },
+  methods: {
+    ...mapActions({
+      selectDebits: "debits/select",
+      deleteDebits: "debits/delete",
+    }),
+  },
 });
 </script>
 

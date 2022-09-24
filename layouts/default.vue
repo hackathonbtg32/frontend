@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <div class="columns main">
     <div class="column">
       <SideBar />
     </div>
@@ -20,3 +20,9 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.main {
+  height: 100vh !important;
+}
+</style>

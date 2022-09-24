@@ -23,10 +23,10 @@
             </div>
 
             <b-dropdown
+              v-if="!account.main"
               aria-role="list"
               position="is-top-left"
               class="is-clickable"
-              :disabled="account.main"
             >
               <template #trigger>
                 <b-icon icon="dots-horizontal"></b-icon>
@@ -87,6 +87,6 @@ export default Vue.extend({
 }
 
 .is-main {
-  background-color: red !important;
+  background-color: #fef !important;
 }
 </style>
