@@ -22,7 +22,8 @@ export default {
   },
   fontawesome: {
     icons: {
-      solid: ["faEllipsis"],
+      solid: true,
+      brands: true,
     },
   },
   build: {},
