@@ -35,6 +35,7 @@ export const getters: GetterTree<IState, IState> = {
 export const mutations: MutationTree<IState> = {
   set(state, list: Account[]) {
     state.list = list;
+    state.date = new Date();
   },
   add(state, item: Account) {
     state.list.unshift(item);
@@ -44,6 +45,7 @@ export const mutations: MutationTree<IState> = {
   },
   clear(state) {
     state.list = [];
+    state.date = new Date();
   },
 };
 

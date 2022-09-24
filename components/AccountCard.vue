@@ -5,7 +5,7 @@
       :key="account.id"
       class="column is-one-third"
     >
-      <div class="card">
+      <div class="card" :class="account.main && 'is-main'">
         <div class="card-content is-relative">
           <div class="media">
             <div class="media-left">
@@ -26,6 +26,7 @@
               aria-role="list"
               position="is-top-left"
               class="is-clickable"
+              :disabled="account.main"
             >
               <template #trigger>
                 <b-icon icon="dots-horizontal"></b-icon>
@@ -64,7 +65,9 @@ export default Vue.extend({
     }),
   },
   mounted() {
-    this.selectAccounts();
+    setInterval(() => {
+      this.selectAccounts();
+    }, 100000);
   },
   methods: {
     ...mapActions({
@@ -81,5 +84,9 @@ export default Vue.extend({
   top: 1rem;
   right: 1rem;
   cursor: pointer;
+}
+
+.is-main {
+  background-color: red !important;
 }
 </style>
