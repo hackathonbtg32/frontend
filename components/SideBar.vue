@@ -8,14 +8,17 @@
         />
       </figure>
       <b-menu-list>
+        <b-menu-item
+          icon="home"
+          label="Dashboard"
+          tag="router-link"
+          to="/"
+        ></b-menu-item>
         <b-menu-item icon="account" label="Meu Perfil">
-          <b-menu-item label="Gerenciar Perfil"></b-menu-item>
-          <b-menu-item label="Configurar Contas"></b-menu-item>
+          <b-menu-item icon="cog" label="Gerenciar Perfil"></b-menu-item>
+          <b-menu-item icon="logout" label="Sair"></b-menu-item>
         </b-menu-item>
         <b-menu-item icon="information-outline" label="Historico"></b-menu-item>
-      </b-menu-list>
-      <b-menu-list>
-        <b-menu-item icon="logout" label="Sair"></b-menu-item>
       </b-menu-list>
     </b-menu>
   </header>

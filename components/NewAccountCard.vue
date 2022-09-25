@@ -5,7 +5,7 @@
       :key="account.id"
       class="column is-one-third"
     >
-      <div class="card" :class="account.main && 'is-main'">
+      <div class="card">
         <div class="card-content is-relative">
           <div class="media">
             <div class="media-left">
@@ -21,58 +21,46 @@
               <p class="title is-4">{{ account.namedBroker }}</p>
             </div>
 
-            <b-field
-            position="is-top-left"
-            class="is-clickable"
-            >
-              <b-checkbox></b-checkbox>
+            <b-field position="is-top-left" class="is-clickable">
+              <b-checkbox v-model="account.select"></b-checkbox>
             </b-field>
           </div>
 
           <div class="content">
             <b-field label="Apelido">
-            <b-input v-model="label"></b-input>
-        </b-field>
+              <b-input v-model="account.label"></b-input>
+            </b-field>
           </div>
         </div>
       </div>
     </div>
-    <b-loading :is-full-page="false" v-model="isLoading" :can-cancel="true"></b-loading>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { mapState, mapActions } from "vuex";
 
 export default Vue.extend({
-  data() {
-    return {
-      isLoading: true,  
-    }
-  },
   name: "AccountCard",
-  computed: {
-    ...mapState("accounts", {
-      accounts: "list",
-      dateAccounts: "date",
-    }),
+  props: {
+    accounts: {
+      type: Array,
+      required: true,
+    },
   },
-  mounted() {
-    this.selectAccounts();
-
-    setInterval(() => {
-      this.selectAccounts();
-    }, 100000);
-    this.isLoading = false
+  data: () => ({
+    list: [],
+  }),
+  created() {
+    this.list = this.accounts.map((item: any) => ({
+      ...item,
+      label: "",
+      select: false,
+    })) as Array<never>;
   },
   methods: {
-    ...mapActions({
-      selectAccounts: "accounts/select",
-      deleteAccount: "accounts/delete",
-    }),
-    openLoading() {
-      this.isLoading = true
+    submit() {
+      console.log(this.list);
     },
   },
 });
@@ -84,10 +72,5 @@ export default Vue.extend({
   top: 1rem;
   right: 1rem;
   cursor: pointer;
-}
-
-.is-main {
-  background-color: #fef !important;
-  border: 4px solid #3745A4;
 }
 </style>

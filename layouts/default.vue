@@ -1,10 +1,12 @@
 <template>
-  <div class="columns main">
-    <div class="column">
-      <SideBar />
-    </div>
-    <div class="column is-four-fifths">
-      <Nuxt />
+  <div>
+    <div class="columns main">
+      <div class="column">
+        <SideBar />
+      </div>
+      <div class="column is-four-fifths">
+        <Nuxt />
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +25,6 @@ export default Vue.extend({
 
 <style scoped>
 .main {
-  height: 100vh !important;
+  position: none !important;
 }
 </style>

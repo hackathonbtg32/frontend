@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
-import { Debits } from "~/entities/Debits";
+import { Debits } from "../entities/Debits";
 
 interface IState {
   list: Debits[];

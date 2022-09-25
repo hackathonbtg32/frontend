@@ -5,7 +5,7 @@
     <hr />
     <div class="is-divider" data-content="OR"></div>
 
-    <NewAccountCard />
+    <NewAccountCard :accounts="[]" />
 
     <b-button class="is-success">Cadastrar</b-button>
   </section>

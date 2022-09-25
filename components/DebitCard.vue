@@ -1,5 +1,6 @@
 <template>
-  <section>
+  <Loading v-if="loading" />
+  <section v-else>
     <div class="columns">
       <p class="column has-text-centered">Descricao</p>
       <p class="column has-text-centered">Valor</p>
@@ -52,9 +53,16 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapState, mapGetters, mapActions } from "vuex";
+import Loading from "~/components/Loading.vue";
 
 export default Vue.extend({
   name: "DebitCard",
+  components: {
+    Loading,
+  },
+  data: () => ({
+    loading: false,
+  }),
   computed: {
     ...mapState("debits", {
       dateDebits: "date",
@@ -64,7 +72,7 @@ export default Vue.extend({
     }),
   },
   mounted() {
-    this.selectDebits();
+    this.select();
 
     setInterval(() => {
       this.selectDebits();
@@ -75,6 +83,11 @@ export default Vue.extend({
       selectDebits: "debits/select",
       deleteDebits: "debits/delete",
     }),
+    async select() {
+      this.loading = true;
+      await this.selectDebits();
+      this.loading = false;
+    },
   },
 });
 </script>
