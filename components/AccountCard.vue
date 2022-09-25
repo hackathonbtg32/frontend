@@ -5,7 +5,7 @@
       :key="account.id"
       class="column is-one-third"
     >
-      <div class="card" :class="account.main && 'is-main'">
+      <div class="card" :class="account.status === 1 && 'is-main'">
         <div class="card-content is-relative">
           <div class="media">
             <div class="media-left">
@@ -23,7 +23,7 @@
             </div>
 
             <b-dropdown
-              v-if="!account.main"
+              v-if="account.status !== 1"
               aria-role="list"
               position="is-top-left"
               class="is-clickable"
@@ -32,6 +32,13 @@
                 <b-icon icon="dots-horizontal"></b-icon>
               </template>
 
+              <b-dropdown-item
+                v-if="account.status === 0"
+                aria-role="listitem"
+                @click="() => mainAccount(account.id)"
+              >
+                Tornar Principal
+              </b-dropdown-item>
               <b-dropdown-item
                 aria-role="listitem"
                 @click="() => deleteAccount(account.id)"
@@ -69,12 +76,13 @@ export default Vue.extend({
 
     setInterval(() => {
       this.selectAccounts();
-    }, 100000);
+    }, 10000);
   },
   methods: {
     ...mapActions({
       selectAccounts: "accounts/select",
       deleteAccount: "accounts/delete",
+      mainAccount: "accounts/main",
     }),
   },
 });
@@ -90,6 +98,6 @@ export default Vue.extend({
 
 .is-main {
   background-color: #fef !important;
-  border: 4px solid #3745A4;
+  border: 2px solid #3745a4;
 }
 </style>

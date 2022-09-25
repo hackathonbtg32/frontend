@@ -13,7 +13,7 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
   css: [],
-  plugins: [],
+  plugins: ["@/plugins/mask.js"],
   components: true,
   buildModules: ["@nuxt/typescript-build", "@nuxtjs/fontawesome"],
   modules: ["@nuxtjs/axios", "nuxt-buefy"],
@@ -27,4 +27,5 @@ export default {
     },
   },
   build: {},
+  loading: false,
 };

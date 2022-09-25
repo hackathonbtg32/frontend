@@ -12,17 +12,19 @@
       <b-progress
         :rounded="false"
         :value="debit.percent"
-        :type="debit.percent === 100 ? 'is-danger' : 'is-success'"
+        :type="debit.percent === 100 ? 'is-success' : 'is-danger'"
         class="is-tiny"
       ></b-progress>
 
       <div class="columns">
-        <p class="column has-text-centered">{{ debit.description }}</p>
-        <p class="column has-text-centered">R$ {{ debit.value }}</p>
-        <p class="column has-text-centered">
-          {{ new Date(debit.expiration).toLocaleDateString() }}
-        </p>
         <p class="column has-text-centered">{{ debit.name }}</p>
+        <p class="column has-text-centered">R$ {{ debit.paymentValue }}</p>
+        <p class="column has-text-centered">
+          {{ new Date(debit.paymentData.paymentDueDate).toLocaleDateString() }}
+        </p>
+        <p class="column has-text-centered">
+          {{ debit.paymentData.paymentTo }}
+        </p>
         <div class="column is-1">
           <b-dropdown
             v-if="debit.percent < 100"
@@ -62,9 +64,11 @@ export default Vue.extend({
     }),
   },
   mounted() {
+    this.selectDebits();
+
     setInterval(() => {
       this.selectDebits();
-    }, 100000);
+    }, 10000);
   },
   methods: {
     ...mapActions({

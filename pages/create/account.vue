@@ -2,11 +2,10 @@
   <section class="p-4">
     <b-button tag="router-link" to="/" icon-left="arrow-left">Voltar</b-button>
 
-    <hr/>
-
+    <hr />
     <div class="is-divider" data-content="OR"></div>
 
-    <NewAccountCard/>
+    <NewAccountCard />
 
     <b-button class="is-success">Cadastrar</b-button>
   </section>

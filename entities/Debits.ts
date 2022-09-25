@@ -1,8 +1,8 @@
 export interface Debits {
   id: number;
   description: String;
-  value: number;
-  expiration: Date;
+  paymentValue: number;
+  paymentData: string;
   name: String;
   percent: number;
 }
