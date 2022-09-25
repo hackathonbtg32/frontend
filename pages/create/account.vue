@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <b-button class="is-success">Cadastrar</b-button>
+    <b-button class="is-success" @click="onSubmit">Cadastrar</b-button>
   </section>
 </template>
 
@@ -24,13 +24,18 @@
 import Vue from "vue";
 import Loading from "~/components/Loading.vue";
 
+interface Account {
+  select: boolean;
+  label: String;
+}
+
 export default Vue.extend({
   name: "CreateDebitPage",
   components: {
     Loading,
   },
   data: () => ({
-    accounts: [{ id: 1, namedBroker: "BTG Pactual" }],
+    accounts: [] as Account[],
     loading: false,
   }),
   mounted() {
@@ -43,9 +48,13 @@ export default Vue.extend({
       const accounts = await this.$axios.get("/openfinance/brokers/1");
       this.accounts = accounts.data.data;
 
-      console.log(this.accounts);
-
       this.loading = false;
+    },
+    onSubmit() {
+      const accounts = this.accounts.filter((account) => {
+        return account.select && account.select === true;
+      });
+      console.log(accounts);
     },
   },
 });

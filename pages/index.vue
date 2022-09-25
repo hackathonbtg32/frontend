@@ -2,7 +2,12 @@
   <div class="py-4">
     <b-tabs v-model="tab">
       <b-tab-item label="Dashboard" value="dashboard">
-        <DebitCard :limit="4" />
+        <AccountCard :limit="3" />
+
+        <hr />
+        <div class="is-divider" data-content="OR"></div>
+        <DebitCard :limit="3" />
+
       </b-tab-item>
 
       <b-tab-item label="Debitos" value="debits">

@@ -2,7 +2,7 @@
   <Loading v-if="loading" />
   <div v-else class="columns is-multiline">
     <div
-      v-for="account in accounts"
+      v-for="account in filter(accounts)"
       :key="account.id"
       class="column is-one-third"
     >
@@ -81,6 +81,12 @@ export default Vue.extend({
   components: {
     Loading,
   },
+  props: {
+    limit: {
+      type: Number,
+      default: null,
+    },
+  },
   data: () => ({
     loading: false,
   }),
@@ -107,6 +113,11 @@ export default Vue.extend({
       this.loading = true;
       await this.selectAccounts();
       this.loading = false;
+    },
+    filter(list: unknown[]) {
+      if (this.limit === null) return list;
+      if (list === undefined) return [];
+      return list.slice(0, this.limit);
     },
   },
 });

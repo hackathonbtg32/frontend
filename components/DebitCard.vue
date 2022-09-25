@@ -32,7 +32,7 @@
         </p>
         <div class="column is-1">
           <b-dropdown
-            v-if="debit.percent < 100"
+            v-if="!debit.paymentData.paymentStatus"
             aria-role="list"
             position="is-top-left"
             class="is-clickable"
@@ -101,7 +101,7 @@ export default Vue.extend({
     filter(list: unknown[]) {
       if (this.limit === null) return list;
       if (list === undefined) return [];
-      return list.slice(this.limit, list.length);
+      return list.slice(0, this.limit);
     },
   },
 });
