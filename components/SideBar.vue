@@ -18,7 +18,7 @@
           <b-menu-item icon="cog" label="Gerenciar Perfil"></b-menu-item>
           <b-menu-item icon="logout" label="Sair"></b-menu-item>
         </b-menu-item>
-        <b-menu-item icon="information-outline" label="Historico"></b-menu-item>
+        <b-menu-item icon="information-outline" label="Historico" tag="router-link" to="/history"></b-menu-item>
       </b-menu-list>
     </b-menu>
   </header>
