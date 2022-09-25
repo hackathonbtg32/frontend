@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
-import { Account } from "~/entities/Account";
+import { Account } from "../entities/Account";
 
 interface IState {
   list: Account[];
@@ -50,12 +50,15 @@ export const mutations: MutationTree<IState> = {
 
 export const actions: ActionTree<IState, IState> = {
   async main({ commit }, id: number) {
-    //await this.$axios.get("/brokers/1");
+    await this.$axios.get("/brokers/1");
     commit("main", id);
   },
   async select({ commit }) {
     const list = await this.$axios.get("/brokers/1");
     commit("set", list.data.data);
+
+    const total = await this.$axios.get("/brokers/1");
+    commit("total", total.data.data);
   },
   async create({ commit }, data: Account) {
     const item = await this.$axios.post("/teste", data);

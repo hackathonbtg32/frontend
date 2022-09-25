@@ -1,5 +1,6 @@
 <template>
-  <div class="columns is-multiline">
+  <Loading v-if="loading" />
+  <div v-else class="columns is-multiline">
     <div
       v-for="account in accounts"
       :key="account.id"
@@ -62,9 +63,16 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapState, mapActions } from "vuex";
+import Loading from "~/components/Loading.vue";
 
 export default Vue.extend({
   name: "AccountCard",
+  components: {
+    Loading,
+  },
+  data: () => ({
+    loading: false,
+  }),
   computed: {
     ...mapState("accounts", {
       accounts: "list",
@@ -72,7 +80,7 @@ export default Vue.extend({
     }),
   },
   mounted() {
-    this.selectAccounts();
+    this.select();
 
     setInterval(() => {
       this.selectAccounts();
@@ -84,6 +92,11 @@ export default Vue.extend({
       deleteAccount: "accounts/delete",
       mainAccount: "accounts/main",
     }),
+    async select() {
+      this.loading = true;
+      await this.selectAccounts();
+      this.loading = false;
+    },
   },
 });
 </script>
