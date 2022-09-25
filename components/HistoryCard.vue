@@ -69,6 +69,10 @@
     <style scoped>
     .is-tiny {
       height: 0.2rem !important;
+    };
+
+    .hist {
+      background-color: blue;
     }
     </style>
     
