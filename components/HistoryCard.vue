@@ -8,7 +8,7 @@
       <p class="column has-text-centered">Pagamento</p>
     </div>
 
-    <div v-for="debit in debits" :key="debit.id" class="card mb-5 is-relative">
+    <div v-for="debit in debits" :key="debit.id" class="card mb-5 is-relative hist">
       <div class="columns">
         <p class="column has-text-centered">{{ debit.name }}</p>
         <p class="column has-text-centered">R$ {{ debit.paymentValue }}</p>
@@ -69,5 +69,12 @@ export default Vue.extend({
 .is-tiny {
   height: 0.2rem !important;
 }
+
+.hist {
+  border: 2px solid #3745A4;
+  padding: 8px;
+  background-color: #E6E7FA;
+};
+
 </style>
     
