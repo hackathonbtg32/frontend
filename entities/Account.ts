@@ -1,7 +1,7 @@
 export interface Account {
   id: number;
-  name: String;
-  label: String;
+  namedBroker: String;
+  cardLabel: String;
   main: boolean;
-  value: number;
+  availableBrokerValue: number;
 }

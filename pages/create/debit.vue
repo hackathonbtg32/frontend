@@ -3,7 +3,7 @@
     <b-button tag="router-link" to="/" icon-left="arrow-left">Voltar</b-button>
 
     <div class="py-6">
-      <b-field label="Name">
+      <b-field label="Nome">
         <b-input v-model="name"></b-input>
       </b-field>
 

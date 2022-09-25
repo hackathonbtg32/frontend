@@ -18,7 +18,7 @@ export default {
   buildModules: ["@nuxt/typescript-build", "@nuxtjs/fontawesome"],
   modules: ["@nuxtjs/axios", "nuxt-buefy"],
   axios: {
-    baseURL: "https://rickandmortyapi.com/api",
+    baseURL: "http://ec2-54-94-75-93.sa-east-1.compute.amazonaws.com:8080",
   },
   fontawesome: {
     icons: {

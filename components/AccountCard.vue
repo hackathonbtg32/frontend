@@ -18,8 +18,8 @@
             </div>
 
             <div class="media-content">
-              <p class="title is-4">{{ account.name }}</p>
-              <p class="subtitle is-6">{{ account.label }}</p>
+              <p class="title is-4">{{ account.namedBroker }}</p>
+              <p class="subtitle is-6">{{ account.cardLabel }}</p>
             </div>
 
             <b-dropdown
@@ -43,7 +43,7 @@
 
           <div class="content">
             <p class="is-size-4 has-text-weight-semibold">
-              R$ {{ account.value }}
+              R$ {{ account.availableBrokerValue }}
             </p>
           </div>
         </div>
@@ -65,6 +65,8 @@ export default Vue.extend({
     }),
   },
   mounted() {
+    this.selectAccounts();
+
     setInterval(() => {
       this.selectAccounts();
     }, 100000);
