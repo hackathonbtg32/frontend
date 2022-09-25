@@ -20,7 +20,7 @@
             <div class="media-content">
               <p class="title is-4">{{ account.namedBroker }}</p>
             </div>
-            
+
             <b-field
             position="is-top-left"
             class="is-clickable"
@@ -37,6 +37,7 @@
         </div>
       </div>
     </div>
+    <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="true"></b-loading>
   </div>
 </template>
 
@@ -45,6 +46,12 @@ import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 
 export default Vue.extend({
+  data() {
+    return {
+      isLoading: true,
+      isFullPage: false
+    }
+  },
   name: "AccountCard",
   computed: {
     ...mapState("accounts", {
@@ -58,12 +65,19 @@ export default Vue.extend({
     setInterval(() => {
       this.selectAccounts();
     }, 100000);
+    this.isLoading = false
   },
   methods: {
     ...mapActions({
       selectAccounts: "accounts/select",
       deleteAccount: "accounts/delete",
     }),
+    openLoading() {
+      this.isLoading = true
+      setTimeout(() => {
+        this.isLoading = false
+      }, 10 * 1000)
+    },
   },
 });
 </script>
