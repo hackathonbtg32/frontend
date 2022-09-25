@@ -2,7 +2,7 @@
   <div v-if="loading" class="py-6">
     <Loading />
   </div>
-  <section v-else>
+  <section v-else-if="debits.length > 0">
     <div class="columns">
       <p class="column has-text-centered">Descricao</p>
       <p class="column has-text-centered">Valor</p>
@@ -27,6 +27,12 @@
       </div>
     </div>
   </section>
+  <div v-else class="p-6 columns is-multiline is-centered">
+    <figure class=" image is-128x128 mb-4">
+      <img src="/noHistory.svg" />
+    </figure>
+    <p class="column is-full has-text-centered">Nenhum historico encontrado!</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -55,7 +61,6 @@ export default Vue.extend({
         debit.paymentData = JSON.parse(debit.paymentData);
         return debit;
       });
-      console.log(debits);
 
       this.loading = false;
     },

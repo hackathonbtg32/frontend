@@ -46,7 +46,6 @@ export default Vue.extend({
         paymentCode: this.code,
       });
 
-      await this.selectDebits();
       this.loading = false;
 
       this.$router.push({ path: "/" });

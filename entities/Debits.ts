@@ -5,4 +5,5 @@ export interface Debits {
   paymentData: string;
   name: String;
   percent: number;
+  status: number;
 }

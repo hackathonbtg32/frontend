@@ -1,6 +1,6 @@
 <template>
   <Loading v-if="loading" />
-  <div v-else class="columns is-multiline">
+  <div v-else-if="accounts.length > 0" class="columns is-multiline">
     <div
       v-for="account in filter(accounts)"
       :key="account.id"
@@ -68,6 +68,14 @@
         </div>
       </div>
     </div>
+  </div>
+  <div v-else class="p-6 columns is-multiline is-centered">
+    <figure class="image is-128x128 mb-4">
+      <img src="/noAccount.svg" />
+    </figure>
+    <p class="column is-full has-text-centered">
+      Nenhuma conta cadastrada ainda!
+    </p>
   </div>
 </template>
 

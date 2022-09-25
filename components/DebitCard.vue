@@ -1,6 +1,6 @@
 <template>
   <Loading v-if="loading" />
-  <section v-else>
+  <section v-else-if="debits.length > 0">
     <div class="columns">
       <p class="column has-text-centered">Descricao</p>
       <p class="column has-text-centered">Valor</p>
@@ -17,7 +17,7 @@
       <b-progress
         :rounded="false"
         :value="debit.percent"
-        :type="debit.paymentData.paymentStatus ? 'is-success' : 'is-danger'"
+        :type="debit.status === 1 ? 'is-success' : 'is-danger'"
         class="is-tiny"
       ></b-progress>
 
@@ -52,6 +52,12 @@
       </div>
     </div>
   </section>
+  <div v-else class="p-6 columns is-multiline is-centered">
+    <figure class="image is-128x128 mb-4">
+      <img src="/noDebits.svg" />
+    </figure>
+    <p class="column is-full has-text-centered">Nenhum debito cadastrado!</p>
+  </div>
 </template>
 
 <script lang="ts">

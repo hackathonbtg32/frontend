@@ -27,6 +27,7 @@ import Loading from "~/components/Loading.vue";
 interface Account {
   select: boolean;
   label: String;
+  organizationId: String;
 }
 
 export default Vue.extend({
@@ -50,11 +51,24 @@ export default Vue.extend({
 
       this.loading = false;
     },
-    onSubmit() {
+    async onSubmit() {
+      this.loading = true;
+
       const accounts = this.accounts.filter((account) => {
         return account.select && account.select === true;
       });
-      console.log(accounts);
+      const brokers = accounts.map((account) => ({
+        label: account.label,
+        organizationId: account.organizationId,
+      }));
+
+      await this.$axios.post("/broker/insert/1", {
+        dataBrokers: brokers,
+      });
+
+      this.loading = false;
+
+      this.$router.push({ path: "/" });
     },
   },
 });

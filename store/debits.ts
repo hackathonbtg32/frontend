@@ -11,6 +11,11 @@ export const getters: GetterTree<IState, any> = {
     let totalAccounts = root.accounts.total;
 
     const list = state.list.map((item) => {
+      if (item.status === 1) {
+        item.percent = 100;
+        return item;
+      }
+
       const after = totalAccounts - item.paymentValue;
 
       if (after > 0) {
@@ -56,7 +61,13 @@ export const mutations: MutationTree<IState> = {
 export const actions: ActionTree<IState, IState> = {
   async select({ commit }) {
     const list = await this.$axios.get("/debits/1");
-    commit("set", list.data.data);
+    const debits = list.data.data as Debits[];
+
+    const orderDebits = debits.sort((last, current) => {
+      return last.paymentValue - current.paymentValue;
+    });
+
+    commit("set", orderDebits);
   },
   async delete({ state, commit }, id: number) {
     await this.$axios.put("/debits/" + id);
