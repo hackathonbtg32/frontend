@@ -1,14 +1,28 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import { Debits } from "../entities/Debits";
 
-interface IState {
+export interface IState {
   list: Debits[];
   date: Date | null;
 }
 
-export const getters: GetterTree<IState, IState> = {
-  orderByPercent(state) {
-    const list = [...state.list];
+export const getters: GetterTree<IState, any> = {
+  orderByPercent(state, _, root) {
+    let totalAccounts = root.accounts.total;
+
+    const list = state.list.map((item) => {
+      const after = totalAccounts - item.paymentValue;
+
+      if (after > 0) {
+        item.percent = 100;
+        totalAccounts -= item.paymentValue;
+        return item;
+      }
+
+      item.percent = (item.paymentValue / 100) * (after * -1);
+      return item;
+    });
+
     return list.sort((previous, current) => {
       return current.percent - previous.percent;
     });
