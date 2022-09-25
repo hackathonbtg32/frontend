@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="true"></b-loading>
+    <b-loading :is-full-page="false" v-model="isLoading" :can-cancel="true"></b-loading>
   </div>
 </template>
 
@@ -48,8 +48,7 @@ import { mapState, mapActions } from "vuex";
 export default Vue.extend({
   data() {
     return {
-      isLoading: true,
-      isFullPage: false
+      isLoading: true,  
     }
   },
   name: "AccountCard",
@@ -74,9 +73,6 @@ export default Vue.extend({
     }),
     openLoading() {
       this.isLoading = true
-      setTimeout(() => {
-        this.isLoading = false
-      }, 10 * 1000)
     },
   },
 });
