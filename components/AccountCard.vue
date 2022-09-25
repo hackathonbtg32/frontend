@@ -10,7 +10,7 @@
         <div class="card-content is-relative">
           <div class="media">
             <div class="media-left">
-              <figure class="image is-48x48">
+              <figure class="image is-64x64">
                 <img
                   src="https://bulma.io/images/placeholders/96x96.png"
                   alt="Placeholder image"
@@ -20,7 +20,18 @@
 
             <div class="media-content">
               <p class="title is-4">{{ account.namedBroker }}</p>
-              <p class="subtitle is-6">{{ account.cardLabel }}</p>
+              <p class="subtitle is-6 mb-0">
+                {{ account.cardLabel }}
+              </p>
+              <p class="is-tiny is-light">
+                {{
+                  account.status >= 0
+                    ? account.status === 1
+                      ? "Banco Principal"
+                      : "Banco"
+                    : "Corretora"
+                }}
+              </p>
             </div>
 
             <b-dropdown
@@ -112,5 +123,9 @@ export default Vue.extend({
 .is-main {
   background-color: #fef !important;
   border: 2px solid #3745a4;
+}
+
+.is-tiny {
+  font-size: 12px;
 }
 </style>

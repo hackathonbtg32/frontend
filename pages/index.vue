@@ -60,7 +60,7 @@ export default Vue.extend({
 
 <style scoped>
 .is-floating {
-  position: absolute;
+  position: fixed;
   right: 2rem;
   bottom: 2rem;
 }

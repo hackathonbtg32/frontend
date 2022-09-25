@@ -5,7 +5,7 @@
       <p class="column has-text-centered">Descricao</p>
       <p class="column has-text-centered">Valor</p>
       <p class="column has-text-centered">Vencimento</p>
-      <p class="column has-text-centered">Destino</p>
+      <p class="column has-text-centered">Instituicao</p>
       <p class="column is-1"></p>
     </div>
 
@@ -13,7 +13,7 @@
       <b-progress
         :rounded="false"
         :value="debit.percent"
-        :type="debit.percent === 100 ? 'is-success' : 'is-danger'"
+        :type="debit.paymentData.paymentStatus ? 'is-success' : 'is-danger'"
         class="is-tiny"
       ></b-progress>
 

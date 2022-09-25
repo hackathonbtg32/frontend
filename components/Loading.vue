@@ -1,6 +1,6 @@
 <template>
   <div class="p-6">
-    <b-loading v-model="loading" :is-full-page="false"></b-loading>
+    <b-loading v-model="loading" :is-full-page="full"></b-loading>
   </div>
 </template>
 
@@ -8,6 +8,12 @@
 import Vue from "vue";
 export default Vue.extend({
   name: "LoadingComponent",
+  props: {
+    full: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data: () => ({
     loading: true,
   }),

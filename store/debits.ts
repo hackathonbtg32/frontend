@@ -19,7 +19,9 @@ export const getters: GetterTree<IState, any> = {
         return item;
       }
 
-      item.percent = (item.paymentValue / 100) * (after * -1);
+      item.percent = 100 - (100 * (after * -1)) / item.paymentValue;
+      totalAccounts = 0;
+
       return item;
     });
 
@@ -64,7 +66,7 @@ export const actions: ActionTree<IState, IState> = {
     commit("add", item);
   },
   async delete({ state, commit }, id: number) {
-    await this.$axios.put("/debit/" + id);
+    await this.$axios.put("/debits/" + id);
     const index = state.list.findIndex((item) => item.id === id);
     commit("remove", index);
   },
