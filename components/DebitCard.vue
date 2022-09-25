@@ -9,7 +9,11 @@
       <p class="column is-1"></p>
     </div>
 
-    <div v-for="debit in debits" :key="debit.id" class="card mb-5 is-relative">
+    <div
+      v-for="debit in filter(debits)"
+      :key="debit.id"
+      class="card mb-5 is-relative"
+    >
       <b-progress
         :rounded="false"
         :value="debit.percent"
@@ -60,6 +64,12 @@ export default Vue.extend({
   components: {
     Loading,
   },
+  props: {
+    limit: {
+      type: Number,
+      default: null,
+    },
+  },
   data: () => ({
     loading: false,
   }),
@@ -87,6 +97,11 @@ export default Vue.extend({
       this.loading = true;
       await this.selectDebits();
       this.loading = false;
+    },
+    filter(list: unknown[]) {
+      if (this.limit === null) return list;
+      if (list === undefined) return [];
+      return list.slice(this.limit, list.length);
     },
   },
 });

@@ -4,7 +4,7 @@
       <div class="column">
         <SideBar />
       </div>
-      <div class="column is-four-fifths">
+      <div class="column is-four-fifths is-relative">
         <Nuxt />
       </div>
     </div>

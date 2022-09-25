@@ -12,7 +12,7 @@
         </div>
 
         <div class="media-content">
-          <p class="title is-4">{{ data.namedBroker }}</p>
+          <p class="title is-4">{{ data.organizationName }}</p>
         </div>
 
         <b-field position="is-top-left" class="is-clickable">
