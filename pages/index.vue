@@ -1,6 +1,10 @@
 <template>
   <div class="py-4">
     <b-tabs v-model="tab">
+      <b-tab-item label="Dashboard" value="dashboard">
+        <DebitCard :limit="4" />
+      </b-tab-item>
+
       <b-tab-item label="Debitos" value="debits">
         <DebitCard />
       </b-tab-item>
@@ -11,6 +15,7 @@
     </b-tabs>
 
     <b-button
+      v-if="links[tab] !== ''"
       tag="router-link"
       :to="links[tab]"
       class="is-primary is-floating"
@@ -35,7 +40,7 @@ export default Vue.extend({
   },
   data: () => ({
     tab: 0,
-    links: ["/create/debit", "/create/account"],
+    links: ["", "/create/debit", "/create/account"],
   }),
   computed: {
     ...mapState("user", {

@@ -1,5 +1,6 @@
 <template>
-  <section class="p-4">
+  <Loading v-if="loading" />
+  <section v-else class="p-4">
     <b-button tag="router-link" to="/" icon-left="arrow-left">Voltar</b-button>
 
     <hr />
@@ -21,16 +22,30 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Account } from "~/entities/Account";
+import Loading from "~/components/Loading.vue";
 
 export default Vue.extend({
   name: "CreateDebitPage",
+  components: {
+    Loading,
+  },
   data: () => ({
     accounts: [{ id: 1, namedBroker: "BTG Pactual" }],
+    loading: false,
   }),
+  mounted() {
+    this.getAccounts();
+  },
   methods: {
-    onList(list: Account[]) {
-      console.log(list);
+    async getAccounts() {
+      this.loading = true;
+
+      const accounts = await this.$axios.get("/openfinance/brokers/1");
+      this.accounts = accounts.data.data;
+
+      console.log(this.accounts);
+
+      this.loading = false;
     },
   },
 });
