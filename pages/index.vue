@@ -10,7 +10,7 @@
           type="is-primary mt-4"
           icon-left="plus"
         >
-          Criar
+          Cadastrar
         </b-button>
       </b-tab-item>
 
