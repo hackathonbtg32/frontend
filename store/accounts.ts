@@ -1,7 +1,7 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 import { Account } from "../entities/Account";
 
-interface IState {
+export interface IState {
   list: Account[];
   total: number | null;
   date: Date | null;
@@ -20,8 +20,14 @@ export const getters: GetterTree<IState, IState> = {
 };
 
 export const mutations: MutationTree<IState> = {
-  total(state, value: number) {
-    state.total = value;
+  total(state, values: any) {
+    let total = 0;
+    for (const value of values) {
+      const available = value.availableBrokerValue;
+      if (available > 0) total += available;
+    }
+
+    state.total = total;
   },
   set(state, list: Account[]) {
     state.list = list;
@@ -57,8 +63,8 @@ export const actions: ActionTree<IState, IState> = {
     const list = await this.$axios.get("/brokers/1");
     commit("set", list.data.data);
 
-    const total = await this.$axios.get("/brokers/1");
-    commit("total", total.data.data);
+    const values = await this.$axios.get("/brokers/avaliablevalue/1");
+    commit("total", values.data.data);
   },
   async create({ commit }, data: Account) {
     const item = await this.$axios.post("/teste", data);

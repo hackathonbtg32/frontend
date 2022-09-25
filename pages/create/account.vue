@@ -5,7 +5,15 @@
     <hr />
     <div class="is-divider" data-content="OR"></div>
 
-    <NewAccountCard :accounts="[]" />
+    <div class="columns is-multiline">
+      <div
+        v-for="account in accounts"
+        :key="account.id"
+        class="column is-one-third"
+      >
+        <NewAccountCard :account="account" />
+      </div>
+    </div>
 
     <b-button class="is-success">Cadastrar</b-button>
   </section>
@@ -13,9 +21,17 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { Account } from "~/entities/Account";
 
 export default Vue.extend({
   name: "CreateDebitPage",
-  data: () => ({}),
+  data: () => ({
+    accounts: [{ id: 1, namedBroker: "BTG Pactual" }],
+  }),
+  methods: {
+    onList(list: Account[]) {
+      console.log(list);
+    },
+  },
 });
 </script>

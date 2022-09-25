@@ -18,7 +18,7 @@ export default {
   buildModules: ["@nuxt/typescript-build", "@nuxtjs/fontawesome"],
   modules: ["@nuxtjs/axios", "nuxt-buefy"],
   axios: {
-    baseURL: "http://ec2-54-94-75-93.sa-east-1.compute.amazonaws.com:8080",
+    baseURL: "http://15.229.103.90:8080",
   },
   fontawesome: {
     icons: {

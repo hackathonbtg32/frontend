@@ -8,19 +8,8 @@
 import Vue from "vue";
 export default Vue.extend({
   name: "LoadingComponent",
-  props: {
-    isLoading: {
-      type: Boolean,
-      required: true,
-    },
-  },
   data: () => ({
     loading: true,
   }),
-  watch: {
-    isLoading(v: boolean) {
-      this.loading = v;
-    },
-  },
 });
 </script>
