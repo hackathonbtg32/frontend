@@ -88,5 +88,6 @@ export default Vue.extend({
 
 .is-main {
   background-color: #fef !important;
+  border: 4px solid #3745A4;
 }
 </style>

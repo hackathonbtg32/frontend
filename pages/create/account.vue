@@ -1,5 +1,11 @@
 <template>
-  <section class="p-4"></section>
+  <section class="p-4">
+    <b-button tag="router-link" to="/" icon-left="arrow-left">Voltar</b-button>
+
+    <div class="is-divider" data-content="OR"></div>
+
+    <NewAccountCard/>
+  </section>
 </template>
 
 <script lang="ts">
@@ -10,3 +16,7 @@ export default Vue.extend({
   data: () => ({}),
 });
 </script>
+
+.is-divider {
+  
+}
