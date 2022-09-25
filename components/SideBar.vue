@@ -1,9 +1,9 @@
 <template>
   <header class="p-4">
-    <b-menu>
+    <b-menu :activable="false">
       <figure class="image is-3by1 mb-5">
         <img
-          src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
+          src="/Logo.svg"
           alt="Lightweight UI components for Vue.js based on Bulma"
         />
       </figure>
@@ -18,8 +18,22 @@
           <b-menu-item icon="cog" label="Gerenciar Perfil"></b-menu-item>
           <b-menu-item icon="logout" label="Sair"></b-menu-item>
         </b-menu-item>
-        <b-menu-item icon="information-outline" label="Historico" tag="router-link" to="/history"></b-menu-item>
+        <b-menu-item
+          icon="information-outline"
+          label="Historico"
+          tag="router-link"
+          to="/history"
+        ></b-menu-item>
       </b-menu-list>
     </b-menu>
   </header>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+export default Vue.extend({
+  data: () => ({
+    active: false,
+  }),
+});
+</script>

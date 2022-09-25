@@ -44,9 +44,6 @@ export const mutations: MutationTree<IState> = {
     });
     state.date = new Date();
   },
-  add(state, item: Debits) {
-    state.list.unshift(item);
-  },
   remove(state, index: number) {
     state.list.splice(index, 1);
   },
@@ -60,10 +57,6 @@ export const actions: ActionTree<IState, IState> = {
   async select({ commit }) {
     const list = await this.$axios.get("/debits/1");
     commit("set", list.data.data);
-  },
-  async create({ commit }, data: Debits) {
-    const item = await this.$axios.post("/teste", data);
-    commit("add", item);
   },
   async delete({ state, commit }, id: number) {
     await this.$axios.put("/debits/" + id);

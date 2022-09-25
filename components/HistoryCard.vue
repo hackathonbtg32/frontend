@@ -1,5 +1,7 @@
 <template>
-  <Loading v-if="loading" />
+  <div v-if="loading" class="py-6">
+    <Loading />
+  </div>
   <section v-else>
     <div class="columns">
       <p class="column has-text-centered">Descricao</p>
@@ -8,15 +10,19 @@
       <p class="column has-text-centered">Pagamento</p>
     </div>
 
-    <div v-for="debit in debits" :key="debit.id" class="card mb-5 is-relative hist">
+    <div
+      v-for="debit in debits"
+      :key="debit.id"
+      class="card mb-5 is-relative hist"
+    >
       <div class="columns">
         <p class="column has-text-centered">{{ debit.name }}</p>
         <p class="column has-text-centered">R$ {{ debit.paymentValue }}</p>
         <p class="column has-text-centered">
-          {{ new Date(debit.paymentData.paymentDueDate).toLocaleDateString() }}
+          {{ debit.paymentData.paymentTo }}
         </p>
         <p class="column has-text-centered">
-          {{ debit.paymentData.paymentTo }}
+          {{ new Date(debit.paymentData.paymentDate).toLocaleDateString() }}
         </p>
       </div>
     </div>
@@ -25,8 +31,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapState, mapGetters, mapActions } from "vuex";
 import Loading from "~/components/Loading.vue";
+import { Debits } from "~/entities/Debits";
 
 export default Vue.extend({
   name: "HistoryCard",
@@ -35,30 +41,22 @@ export default Vue.extend({
   },
   data: () => ({
     loading: false,
+    debits: [],
   }),
-  computed: {
-    ...mapState("debits", {
-      dateDebits: "date",
-    }),
-    ...mapGetters("debits", {
-      debits: "orderByPercent",
-    }),
-  },
   mounted() {
     this.select();
-
-    setInterval(() => {
-      this.selectDebits();
-    }, 10000);
   },
   methods: {
-    ...mapActions({
-      selectDebits: "debits/select",
-      deleteDebits: "debits/delete",
-    }),
     async select() {
       this.loading = true;
-      await this.selectDebits();
+
+      const debits = await this.$axios.get("/debits/history/1");
+      this.debits = debits.data.data.map((debit: Debits) => {
+        debit.paymentData = JSON.parse(debit.paymentData);
+        return debit;
+      });
+      console.log(debits);
+
       this.loading = false;
     },
   },
@@ -71,10 +69,9 @@ export default Vue.extend({
 }
 
 .hist {
-  border: 2px solid #3745A4;
+  border: 2px solid #3745a4;
   padding: 8px;
-  background-color: #E6E7FA;
-};
-
+  background-color: #e6e7fa;
+}
 </style>
     
